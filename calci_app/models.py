@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import re
 # import Pillow
 
 # Create your models here.
@@ -25,12 +26,14 @@ class Solve(models.Model):
     # complete=models.BooleanField(default=False,null=True,blank=False)
     expr = models.CharField(max_length=200)
     valid_expr=models.BooleanField(default=False)
-    result = models.FloatField(decimal_places=5) #upto maximum of 5 decimal places
+    result = models.DecimalField(decimal_places=5,max_digits=50) #upto maximum of 5 decimal places
     
     expr_id=models.CharField(max_length=200,null=True)
 
     try:
-        result = eval (expr)
+        # result = eval (str(expr))
+        result= eval(re.sub("\W+" , "", expr))
+        # re.sub("\W+" , "", self.name.lower())
         print(result)
         valid_expr = True
 
@@ -47,19 +50,5 @@ class Solve(models.Model):
         return str(self.id)
     
     
-    @property
-    def get_cart_items(self):
-        orderitems=self.orderitem_set.all()        
-        item_total=sum([item.quantity for item in orderitems])
-        return item_total
-
-    @property
-    def shipping(self):
-        shipping=False
-        orderitems=self.orderitem_set.all()
-        for i in orderitems:
-            if i.product.digital==False:
-                shipping = True
-                break # this is added by UNNAT seperately, to save some time
-        return shipping 
+   
 
