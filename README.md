@@ -22,12 +22,12 @@ Simple Django based Calculator web-app following BODMAS.
 # Test Endpoints
 
 1. To register a new user : http://127.0.0.1:8000/api/register/
-    ![image]()
+    
     
 2. To view Client/User List visit: http://127.0.0.1:8000/api/client/
-    ![image]()
+    
     
 3. To view Calculator: http://127.0.0.1:8000/calculation/  
-    ![image]()
+   
     
 
